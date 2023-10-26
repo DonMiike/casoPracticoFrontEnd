@@ -1,4 +1,44 @@
-.modal {
+/* Styles for the form */
+.modal-body {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+  }
+  /* Styles for form groups in two columns */
+  .form-group {
+    width: calc(50% - 10px); 
+    margin-bottom: 20px;
+    box-sizing: border-box; 
+    float: left; 
+  }
+  /* Width and height settings for text inputs */
+  input[type="text"],
+  input[type="date"] {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+/* Styles for error messages */
+  .form-group > div {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+/* Styles for disabled input */
+  input:disabled {
+    background-color: #eee;
+    cursor: not-allowed;
+  }
+/* Styles for the modal */
+  .modal {
     display: none;
     position: fixed;
     top: 0;
@@ -7,13 +47,13 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
-}
-
-.modal.show {
+  }
+  
+  .modal.show {
     display: block;
-}
-
-.modal-dialog {
+  }
+  
+  .modal-dialog {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -22,28 +62,57 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     max-width: 80%;
     margin: 0 auto;
-    width: 400px;
-}
-
-.modal-content {
+    width: 800px; 
+  }
+  
+  .modal-content {
     padding: 20px;
-}
-
-.modal-header {
+  }
+  
+  .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ccc;
-}
-
-.modal-title {
+  }
+  
+  .modal-title {
     margin: 0;
-}
-
-.modal-footer {
+  }
+  
+  .modal-footer {
     border-top: 1px solid #ccc;
     padding: 10px;
     text-align: right;
-}
-
-
+  }
+ /* Styles for the close button */
+button.close {
+    background: none; 
+    border: none;
+    padding: 0; 
+    font-size: 20px; 
+    color: red; 
+    cursor: pointer; 
+  }
+  
+  /* Close button hover style */
+  button.close:hover {
+    color: darkred; 
+  }
+  /* Styles for the "Submit" and "Update" buttons */
+.btn-secondary {
+    background-color: #FFD100;
+    color: #000080; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    margin-right: 10px;
+    font-weight: bold; 
+  }
+  
+/* Button hover style */
+  .btn-secondary:hover {
+    background-color: #FFB300;
+  }
+  

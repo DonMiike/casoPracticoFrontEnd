@@ -1,5 +1,4 @@
-/* En tu archivo CSS */
-
+/* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -8,9 +7,9 @@ table {
 
 thead {
     background-color: #d9dce2;
-    /* Cambia el color según tus preferencias para la cabecera */
+
     color: rgb(5, 3, 3);
-    /* Cambia el color del texto si es necesario para la cabecera */
+
 }
 
 th,
@@ -20,15 +19,15 @@ td {
     padding: 8px;
 }
 
-/* Fondo para todas las filas excepto la cabecera */
+/* Background for all rows except header */
 tr:not(:first-child) {
     background-color: #f9f9f9;
-    /* Cambia el color según tus preferencias para el resto de las filas */
+
 }
 
 img {
     max-width: 50px;
-    /* Ajusta el tamaño según tus preferencias */
+
     height: auto;
 }
 
@@ -55,10 +54,6 @@ img {
 
 
 /* Table */
-
-
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
-
 * {
     font-family: 'Rubik', sans-serif;
 }
@@ -91,11 +86,15 @@ h3 {
     position: absolute;
 }
 
-ul.li_menu li{
-    list-style:none
+ul.li_menu li {
+    list-style: none
 }
-  
 
+.pointer {
+    cursor: pointer;
+}
+
+/* inputs*/
 input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
@@ -208,4 +207,20 @@ tbody {
     .input-container {
         margin: 2rem 0;
     }
+}
+
+/* Styles for the Add button */
+button {
+    background-color: #FFD100;
+    color: #000080;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Button hover style */
+button:hover {
+    background-color: #FFB300;
 }

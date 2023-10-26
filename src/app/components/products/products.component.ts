@@ -9,7 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { ProductsService } from 'src/app/services/products.service';
 import { lastValueFrom } from 'rxjs';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
@@ -26,10 +25,8 @@ export class ProductsComponent implements OnInit {
   @ViewChild('addProduct') addProductModal!: ProductModalComponent;
 
   public count: number = 0;
-
   public dropdownVisible = false;
   public id_selected: any = '';
-
   public products: Product[] = [];
   public all_products: Product[] = [];
 
@@ -38,16 +35,11 @@ export class ProductsComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef,
     public router: Router
-  ) {}
+  ) { }
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
-    /* const buttonElement =
-      this.el.nativeElement.querySelector('.btn-three-dots');
-
-    if (!buttonElement.contains(event.target as Node)) {
-      this.dropdownVisible = false;
-    } */
+    // Handle click events
   }
 
   ngOnInit(): void {
@@ -56,10 +48,11 @@ export class ProductsComponent implements OnInit {
 
   async getProducts() {
     try {
+      // Fetch products and categorize them into pages
       this.all_products = await lastValueFrom(
         this.productsService.getProducts('1')
       );
-      // debugger;
+
       let ids = 1;
       this.all_products.forEach((element) => {
         if (ids >= 10 && ids <= 20) {
@@ -75,15 +68,15 @@ export class ProductsComponent implements OnInit {
         ids++;
       });
       this.products = this.all_products.filter((element) => element.page == 1);
-      // debugger;
+
 
       this.count = this.all_products.length;
       console.log(this.products);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   changePage(event: any) {
-    // debugger;
+    // Change the displayed page based on user selection
     const selectedValue = event.target.value;
     this.products = this.all_products.filter((element) => {
       if (element.page !== undefined && element.page !== null) {
@@ -94,36 +87,36 @@ export class ProductsComponent implements OnInit {
   }
 
   showDropdown(product_id: any) {
-    // debugger;
+    // Show or hide the dropdown menu for a product
     this.dropdownVisible = !this.dropdownVisible;
     this.id_selected = product_id;
     this.click_away = false;
   }
 
-  editarItem(product:any) {
-     debugger;
+  editarItem(product: any) {
+    // Open the product modal for editing
     this.addProductModal.openModal(product);
-
-    // Lógica para editar el elemento
   }
 
-  async eliminarItem(id:any) {
-     debugger;
-     try {
+  async eliminarItem(id: any) {
+    // Delete a product and handle the result
+    try {
       await lastValueFrom(this.productsService.deleteProducts('1', id))
-      //alert("Se elimino correctamente!")
     } catch (error) {
-      //alert("No se pudieron eliminar los datos!")
+      alert("Se elimino correctamente!")
       window.location.reload();
     }
-    // Lógica para eliminar el elemento
+
   }
 
   addItems() {
+    // Open the product modal for adding a new item
     this.addProductModal.openModal("1");
   }
 
-  setSeleccionado(event: any) {}
+  setSeleccionado(event: any) {
+    // Set the selected item
+  }
 }
 interface Product {
   id: string;

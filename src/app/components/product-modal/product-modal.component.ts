@@ -9,12 +9,18 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./product-modal.component.css'],
 })
 export class ProductModalComponent implements OnInit {
-  public edit=false;
+  // Indicates whether the form is in edit mode
+  public edit = false;
+  // Initialize the form
   myForm: FormGroup;
+  // Marks the form as submitted
+  formSubmitted: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private productsService: ProductsService
   ) {
+    // Initialize the form with validation rules
     this.myForm = this.fb.group({
       id: [
         '',
@@ -45,12 +51,12 @@ export class ProductModalComponent implements OnInit {
         '',
         [Validators.required, this.fechaLiberacionValidator],
       ],
-      fechaRevision: ['', []],
+      fechaRevision: [''],
     });
   }
 
   fechaLiberacionValidator(control: any) {
-    console.log('ok');
+    // Custom validator function for the release date
     const fechaLiberacion = new Date(control.value);
     const currentDate = new Date();
 
@@ -74,32 +80,31 @@ export class ProductModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Disable the revision date input
     this.myForm.get('fechaRevision')!.disable();
   }
   public showModal = false;
 
-  openModal(product:any) {
-    debugger
+  openModal(product: any) {
+    // Open the modal for editing
     this.myForm.get('id')!.enable();
     this.myForm.patchValue({ id: product.id });
     this.myForm.patchValue({ logo: product.logo });
-    this.myForm.patchValue({ descripcion: product.description });    
+    this.myForm.patchValue({ descripcion: product.description });
     this.myForm.patchValue({ nombre: product.name });
-    /* this.myForm.patchValue({ fechaLiberacion: product.date_release });
-    this.myForm.patchValue({ fechaRevision: product.date_revision }); */
     const fechaLiberacion = new Date(product.date_release);
     const fechaRevision = new Date(product.date_revision);
-    
+
     const newDateFormat = this.formatFecha(fechaLiberacion);
     const newDateFormat2 = this.formatFecha(fechaRevision);
 
     this.myForm.patchValue({ fechaLiberacion: newDateFormat });
     this.myForm.patchValue({ fechaRevision: newDateFormat2 });
-    if (product!='1') {
-    this.myForm.get('id')!.disable();
-    this.edit=true;
-    }else {
-    this.edit=false
+    if (product != '1') {
+      this.myForm.get('id')!.disable();
+      this.edit = true;
+    } else {
+      this.edit = false;
     }
 
     this.showModal = true;
@@ -110,8 +115,11 @@ export class ProductModalComponent implements OnInit {
   }
 
   async send() {
-    // debugger
+    // Mark the form as submitted
+    this.formSubmitted = true;
+
     if (this.myForm.valid) {
+      // Send the form data if it's valid
       this.myForm.get('fechaRevision')!.enable();
 
       const form: any = {
@@ -124,13 +132,12 @@ export class ProductModalComponent implements OnInit {
       };
       try {
         console.log('Formulario válido, valores enviados:', form);
-        await lastValueFrom(this.productsService.addProducts('1', form))
+        await lastValueFrom(this.productsService.addProducts('1', form));
         this.showModal = false;
-        alert("Se envió correctamente!")
-      window.location.reload();
-
+        alert('Se envió correctamente!');
+        window.location.reload();
       } catch (error) {
-        alert("No se pudieron enviar los datos!")
+        alert('No se pudieron enviar los datos!');
       }
     } else {
       console.log('Formulario no válido');
@@ -138,15 +145,14 @@ export class ProductModalComponent implements OnInit {
   }
 
   async update() {
-     debugger
-     this.myForm.get('fechaRevision')!.enable();
-      this.myForm.get('id')!.enable();
-      console.log(this.myForm.get('fechaRevision'));
-     
-
+    // Mark the form as submitted
+    this.formSubmitted = true;
 
     if (this.myForm.valid) {
-      
+      // Update the data if the form is valid
+      this.myForm.get('fechaRevision')!.enable();
+      this.myForm.get('id')!.enable();
+
       const form: any = {
         id: this.myForm.value.id,
         name: this.myForm.value.nombre,
@@ -159,13 +165,12 @@ export class ProductModalComponent implements OnInit {
 
       try {
         console.log('Formulario válido, valores enviados:', form);
-        await lastValueFrom(this.productsService.editProducts('1', form))
+        await lastValueFrom(this.productsService.editProducts('1', form));
         this.showModal = false;
-        alert("Se Actualizo correctamente!")
-      window.location.reload();
-
+        alert('Se Actualizó correctamente!');
+        window.location.reload();
       } catch (error) {
-        alert("No se pudieron actualizar los datos!")
+        alert('No se pudieron actualizar los datos!');
       }
     } else {
       console.log('Formulario no válido');
@@ -173,8 +178,8 @@ export class ProductModalComponent implements OnInit {
   }
 
   setDate() {
+    // Set the revision date based on the release date
     const fechaLiberacion = new Date(this.myForm.value.fechaLiberacion);
-
     fechaLiberacion.setFullYear(fechaLiberacion.getFullYear() + 1);
     const newDateFormat = this.formatFecha(fechaLiberacion);
 
@@ -182,13 +187,13 @@ export class ProductModalComponent implements OnInit {
     console.log('Formulario válido, valores enviados:', this.myForm.value);
   }
 
-
   formatFecha(fecha: any) {
+    // Format the date
     const año = fecha.getFullYear();
-    const mes = fecha.getMonth() + 1; // Los meses se indexan desde 0, por lo que sumamos 1
+    const mes = fecha.getMonth() + 1;
     const dia = fecha.getDate() + 1;
 
-    // Formatear el mes y el día para que tengan dos dígitos
+
     const mesFormateado = mes < 10 ? `0${mes}` : mes;
     const diaFormateado = dia < 10 ? `0${dia}` : dia;
 

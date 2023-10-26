@@ -1,7 +1,7 @@
 <div class="modal" [ngClass]="{ show: showModal }">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form [formGroup]="myForm">
+      <form [formGroup]="myForm" (ngSubmit)="send()">
         <div class="modal-header">
           <h5 class="modal-title" *ngIf="!edit">Crear Producto</h5>
           <h5 class="modal-title" *ngIf="edit">Editar Producto</h5>
@@ -11,16 +11,17 @@
           </button>
         </div>
         <div class="modal-body">
+          <!-- Inputs with validation messages -->
           <div class="form-group">
             <label for="id">Id:</label>
             <input type="text" id="id" formControlName="id" />
-            <div *ngIf="myForm.get('id')!.hasError('required')">
+            <div *ngIf="formSubmitted && myForm.get('id')!.hasError('required')">
               El Id es requerido.
             </div>
-            <div *ngIf="myForm.get('id')!.hasError('minlength')">
+            <div *ngIf="formSubmitted && myForm.get('id')!.hasError('minlength')">
               El Id debe tener al menos 3 caracteres.
             </div>
-            <div *ngIf="myForm.get('id')!.hasError('maxlength')">
+            <div *ngIf="formSubmitted && myForm.get('id')!.hasError('maxlength')">
               El Id no debe exceder los 10 caracteres.
             </div>
           </div>
@@ -28,13 +29,13 @@
           <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" formControlName="nombre" />
-            <div *ngIf="myForm.get('nombre')!.hasError('required')">
+            <div *ngIf="formSubmitted && myForm.get('nombre')!.hasError('required')">
               El nombre es requerido.
             </div>
-            <div *ngIf="myForm.get('nombre')!.hasError('minlength')">
+            <div *ngIf="formSubmitted && myForm.get('nombre')!.hasError('minlength')">
               El nombre debe tener al menos 5 caracteres.
             </div>
-            <div *ngIf="myForm.get('nombre')!.hasError('maxlength')">
+            <div *ngIf="formSubmitted && myForm.get('nombre')!.hasError('maxlength')">
               El nombre no debe exceder los 100 caracteres.
             </div>
           </div>
@@ -42,13 +43,13 @@
           <div class="form-group">
             <label for="descripcion">Descripción:</label>
             <input type="text" id="descripcion" formControlName="descripcion" />
-            <div *ngIf="myForm.get('descripcion')!.hasError('required')">
+            <div *ngIf="formSubmitted && myForm.get('descripcion')!.hasError('required')">
               La descripción es requerida.
             </div>
-            <div *ngIf="myForm.get('descripcion')!.hasError('minlength')">
+            <div *ngIf="formSubmitted && myForm.get('descripcion')!.hasError('minlength')">
               La descripción debe tener al menos 10 caracteres.
             </div>
-            <div *ngIf="myForm.get('descripcion')!.hasError('maxlength')">
+            <div *ngIf="formSubmitted && myForm.get('descripcion')!.hasError('maxlength')">
               La descripción no debe exceder los 200 caracteres.
             </div>
           </div>
@@ -56,38 +57,29 @@
           <div class="form-group">
             <label for="logo">Logo:</label>
             <input type="text" id="logo" formControlName="logo" />
-            <div *ngIf="myForm.get('logo')!!.hasError('required')">
+            <div *ngIf="formSubmitted && myForm.get('logo')!.hasError('required')">
               El logo es requerido.
             </div>
           </div>
-
+          <!-- Disabled input for 'Revision Date' -->
           <div class="form-group">
             <label for="fechaLiberacion">Fecha de Liberación:</label>
-            <input
-              type="date"
-              id="fechaLiberacion"
-              formControlName="fechaLiberacion"
-              (change)="setDate()"
-            />
-            <div *ngIf="myForm.get('fechaLiberacion')!.hasError('required')">
+            <input type="date" id="fechaLiberacion" formControlName="fechaLiberacion" (change)="setDate()" />
+            <div *ngIf="formSubmitted && myForm.get('fechaLiberacion')!.hasError('required')">
               La fecha de liberación es requerida.
             </div>
-            <div *ngIf="myForm.get('fechaLiberacion')!.hasError('invalidDate')">
+            <div *ngIf="formSubmitted && myForm.get('fechaLiberacion')!.hasError('invalidDate')">
               La fecha de liberación debe ser igual o mayor a la fecha actual.
             </div>
           </div>
 
           <div class="form-group">
             <label for="fechaRevision">Fecha de Revisión:</label>
-            <input
-              type="date"
-              [disabled]="true"
-              id="fechaRevision"
-              formControlName="fechaRevision"
-            />
+            <input type="date" [disabled]="true" id="fechaRevision" formControlName="fechaRevision" />
           </div>
         </div>
         <div class="modal-footer">
+          <!-- Buttons-->
           <button type="button" class="btn btn-secondary" *ngIf="!edit" (click)="send()">
             Enviar
           </button>
@@ -96,6 +88,7 @@
           </button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
