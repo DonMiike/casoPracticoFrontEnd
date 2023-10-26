@@ -1,0 +1,80 @@
+<body>
+  <div class="container">
+    <h1>Prueba</h1>
+    <button (click)="addItems()">Agregar</button>
+    <div class="wrapper-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre del Producto</th>
+            <!-- <th>ID</th>!-->
+            <th>Descripción</th>
+            <th>Fecha de liberación</th>
+            <th>Fecha de reestructuración</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>
+              <img [src]="product.logo" alt="{{ product.name }}" height="50" />
+            </td>
+            <td>{{ product.name }}</td>
+            <!-- <td>{{ product.id }}</td>!-->
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release | date : "yyyy-MM-dd" }}</td>
+            <td>{{ product.date_revision | date : "yyyy-MM-dd" }}</td>
+
+            <td>
+              <div class="three-dots">
+                <!-- three dot menu -->
+                <!-- three dots -->
+                <ul class="dropbtn icons">
+                  <button
+                    (click)="showDropdown(product.id)"
+                    class="btn-three-dots"
+                  >
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </button>
+                  <!-- <div *ngIf="dropdownVisible && product.id==id_selected" class="menu">                    
+                    <ul class="menu-items">
+                      <li>Opción 1</li>
+                      <li>Opción 2</li>
+                    </ul>
+                  </div> -->
+                  <div
+                    class="card-list"
+                    *ngIf="dropdownVisible && product.id == id_selected"
+                  >
+                    <div class="card shadow-box">
+                      <div class="card-item">
+                        <ul class="li_menu">
+                          <li (click)="editarItem(product)">Editar</li>
+                          <li (click)="eliminarItem(product.id)">Eliminar</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p>Resultado: {{ count }}</p>
+        <select id="myDropdown" name="dropdown" style="margin-left: auto;" (change)="changePage($event)">
+          <option value="1">5</option>
+          <option value="2">10</option>
+          <option value="3">20</option>
+
+        </select>
+      </div>
+  </div>
+</body>
+
+<app-product-modal #addProduct></app-product-modal>

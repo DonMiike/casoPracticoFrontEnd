@@ -1,0 +1,211 @@
+/* En tu archivo CSS */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #d9dce2;
+    /* Cambia el color según tus preferencias para la cabecera */
+    color: rgb(5, 3, 3);
+    /* Cambia el color del texto si es necesario para la cabecera */
+}
+
+th,
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Fondo para todas las filas excepto la cabecera */
+tr:not(:first-child) {
+    background-color: #f9f9f9;
+    /* Cambia el color según tus preferencias para el resto de las filas */
+}
+
+img {
+    max-width: 50px;
+    /* Ajusta el tamaño según tus preferencias */
+    height: auto;
+}
+
+/* Three dots */
+
+.btn-three-dots {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+
+.icons button li {
+    background: none repeat scroll 0 0 black;
+    height: 7px;
+    width: 7px;
+    line-height: 0;
+    list-style: none outside none;
+    margin-top: 3px;
+    margin-right: 40px;
+    vertical-align: top;
+    border-radius: 50%;
+}
+
+
+/* Table */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
+.container {
+    max-width: 992px;
+    margin: auto;
+    width: 100%;
+    padding: 0 15px;
+}
+
+h1 {
+    color: #40513B;
+    margin: 1rem 0;
+}
+
+h3 {
+    color: #4C4B16;
+    width: 3rem;
+}
+
+.min-max {
+    width: 2.5rem;
+    border: none;
+    border-bottom: 2px solid #4C4B16;
+    padding: 4px 0;
+}
+
+.menu-items {
+    position: absolute;
+}
+
+ul.li_menu li{
+    list-style:none
+}
+  
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    text-align: center;
+}
+
+input[type="number"]:focus-visible {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #4C4B16;
+}
+
+input[type="checkbox"] {
+    text-align: center;
+    margin: auto 1.5rem;
+    width: 16px;
+    height: 16px;
+}
+
+input[type="checkbox"]:checked,
+input[type="checkbox"]:hover,
+input[type="checkbox"]:active,
+input[type="checkbox"]:focus {
+    color: #4C4B16;
+    background: #4C4B16;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.input-container {
+    margin: auto 2rem;
+}
+
+.slider-container {
+    margin: 2rem 0;
+}
+
+.slider-container-content {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.slider-range {
+    margin: 0 10px 0 9px;
+}
+
+.ui-widget-header {
+    border: 1px solid #9DC08B;
+    background: #EDF1D6;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+    background: #9DC08B;
+    border-radius: 50%;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-button:hover,
+.ui-button:focus {
+    background: #40513B;
+}
+
+.wrapper-table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: fit-content;
+    text-align: center
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #40513b14;
+}
+
+td,
+th {
+    padding: 15px 10px;
+    font-size: 14px;
+    color: #675D50;
+}
+
+th,
+tbody {
+    border-bottom: 3px solid #40513B;
+}
+
+@media (max-width: 280px) {
+    .slider-container-content {
+        display: block;
+    }
+
+    .input-container {
+        margin: 2rem 0;
+    }
+}
