@@ -57,7 +57,7 @@ describe('ProductsComponent', () => {
   });
 
   it('should change displayed page based on user selection', () => {
-    // Realiza tus pruebas relacionadas con el cambio de página aquí
+ 
     const mockProducts = [
       {
         id: '1',
@@ -86,7 +86,7 @@ describe('ProductsComponent', () => {
   });
 
   it('should show and hide the dropdown menu', () => {
-    // Realiza tus pruebas relacionadas con mostrar/ocultar el menú desplegable aquí
+  
     const product_id = '1';
 
     expect(component.dropdownVisible).toBeFalse();
@@ -97,7 +97,7 @@ describe('ProductsComponent', () => {
     expect(component.dropdownVisible).toBeTrue();
     expect(component.id_selected).toBe(product_id);
 
-    component.showDropdown(product_id); // Hide it
+    component.showDropdown(product_id);
     expect(component.dropdownVisible).toBeFalse();
     expect(component.id_selected).toBeNull();
   });
