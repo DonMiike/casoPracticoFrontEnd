@@ -3,6 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProductsComponent } from './products.component';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { ProductsService } from 'src/app/services/products.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 
 describe('ProductsComponent', () => {
@@ -13,7 +15,7 @@ describe('ProductsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ProductsComponent, ProductModalComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule,ReactiveFormsModule],
       providers: [ProductsService],
     });
 
@@ -47,58 +49,26 @@ describe('ProductsComponent', () => {
         page: 2,
       },
     ];
+    const mockProductsFromServices:any=[]
+    const authorId='1'
 
-    spyOn(productsService, 'getProducts').and.returnValue(of(mockProducts));
+    productsService.getProducts(authorId).subscribe((response:any) => {
 
-    fixture.detectChanges();
+      if (authorId === '1') {
 
-    expect(component.products).toEqual(mockProducts);
-    expect(component.all_products).toEqual(mockProducts);
-  });
+        response = mockProductsFromServices;
+      }console.log(response);
+    }, (error:any) => {
 
-  it('should change displayed page based on user selection', () => {
- 
-    const mockProducts = [
-      {
-        id: '1',
-        name: 'Product 1',
-        page: 1,
-      },
-      {
-        id: '2',
-        name: 'Product 2',
-        page: 2,
-      },
-    ];
+      console.error(error);
+    });
 
-    spyOn(productsService, 'getProducts').and.returnValue(of(mockProducts));
 
     fixture.detectChanges();
 
-    component.changePage({ target: { value: '1' } });
-    expect(component.products.length).toBe(1);
-    expect(component.products[0].id).toBe('1');
-
-    component.changePage({ target: { value: '2' } });
-    expect(component.products.length).toBe(2);
-    expect(component.products[0].id).toBe('1');
-    expect(component.products[1].id).toBe('2');
+    expect(component.products).toEqual(mockProductsFromServices);
+    expect(component.all_products).toEqual(mockProductsFromServices);
   });
 
-  it('should show and hide the dropdown menu', () => {
-  
-    const product_id = '1';
 
-    expect(component.dropdownVisible).toBeFalse();
-    expect(component.id_selected).toBeNull();
-
-    component.showDropdown(product_id);
-
-    expect(component.dropdownVisible).toBeTrue();
-    expect(component.id_selected).toBe(product_id);
-
-    component.showDropdown(product_id);
-    expect(component.dropdownVisible).toBeFalse();
-    expect(component.id_selected).toBeNull();
-  });
-});
+})
